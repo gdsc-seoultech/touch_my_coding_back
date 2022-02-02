@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 
 from database import db, migrate
 from config import Config
@@ -7,6 +8,7 @@ from model.models import User, Test
 
 # app 시작
 app = Flask(__name__)
+CORS(app)
 
 app.config.from_object(Config)
 db.init_app(app)
