@@ -2,7 +2,7 @@ from flask import Blueprint
 from service import second
 
 service = second.Second
-second_route = Blueprint("second", __name__, url_prefix="/second")
+second_route = Blueprint("second", __name__, url_prefix="/api/second")
 
 @second_route.route("/", methods=["GET"])
 def main():
