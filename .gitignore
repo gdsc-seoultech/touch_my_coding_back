@@ -1,0 +1,11 @@
+# 가상환경 및 env파일
+/env
+.env
+
+# __pycache__
+*/__pycache__
+/__pycache__
+
+# migration
+
+/migrations
