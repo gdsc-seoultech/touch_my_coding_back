@@ -3,7 +3,7 @@ from flask_cors import CORS
 
 from database import db, migrate
 from config import Config
-from router import first, second
+from router import image
 from model.models import User, Test 
 
 # app 시작
@@ -13,9 +13,9 @@ CORS(app)
 app.config.from_object(Config)
 db.init_app(app)
 migrate.init_app(app, db)
+
 # 라우터 등록
-app.register_blueprint(first.first_route)
-app.register_blueprint(second.second_route)
+app.register_blueprint(image.image_route) # img 라우터 등록
 
 
 
@@ -33,5 +33,5 @@ app.register_blueprint(second.second_route)
 #     return f'myname {name}'
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    # app.run(host='0.0.0.0') 외부 접속 허용시
+    #app.run(debug=True)
+    app.run(host='127.0.0.1',port=5000, debug=True) #외부 접속 허용시
