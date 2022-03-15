@@ -3,7 +3,7 @@ from flask_cors import CORS
 
 from database import db, migrate
 from config import Config
-from router import image
+from router import image, code
 from model.models import User, Test 
 
 # app 시작
@@ -16,21 +16,7 @@ migrate.init_app(app, db)
 
 # 라우터 등록
 app.register_blueprint(image.image_route) # img 라우터 등록
-
-
-
-# http method 분기처리
-# @app.route("/test", methods=["GET", "POST"])
-# def check():
-#     if request.method == "POST":
-#         return "POST method"
-#     else:
-#         return "??"
-
-# path parameter 사용법
-# @app.route("/my/<name>")
-# def checck(name):
-#     return f'myname {name}'
+app.register_blueprint(code.code_route)
 
 if __name__ == '__main__':
     #app.run(debug=True)

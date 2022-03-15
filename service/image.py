@@ -23,4 +23,9 @@ class Image:
     def test():
         with open("../img_url.txt", "w") as file:
             return file.readline()
-        
+    
+    def searchCode():
+        return True
+    
+    def registCode():
+        return True
