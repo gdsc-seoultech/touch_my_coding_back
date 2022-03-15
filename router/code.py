@@ -4,10 +4,10 @@ from service import code
 service = code.Code
 code_route = Blueprint("code", __name__, url_prefix="/code")
 
-@code_route.route("/search", methods=["GET"])
-def searchImage():
-    query = request.args.get("query")
-    per_page = request.args.get("per_page")
-    page = request.args.get("page")
+@code_route.route("/<uuid>", methods=["GET"])
+def searchCode():
+    return service.searchCode()
 
-    return service.searchImage(query, per_page, page)
+@code_route.route("/", methods=["POST"])
+def registCode():
+    return service.registCode()

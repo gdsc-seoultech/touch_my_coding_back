@@ -1,3 +1,6 @@
 class Code:
-    def searchImage(query, per_page, page):
+    def searchCode():
+        return True
+    
+    def registCode():
         return True
