@@ -1,31 +1,30 @@
+from urllib import response
 from flask import jsonify
-from model import image
+import requests
+import json
 
 class Image:
-    def main():
-        # formating 필요
-        print("반응 완료")
-        my_value = image.Image.query.all() 
-        for i in my_value:
-            print(i.__dict__)
-        response = {
+    def searchImage(query, per_page, page):
+        result = {
             "success": True,
             "data": {
-                "test": [
-                    {
-                        "url":"성공"
-                    }
+                "results": [
                 ]
             }
         }
-        return jsonify(response)
+        url = 'https://unsplash.com/napi/search' # 웹 요청 
+        params = {'query':query, 'per_page':per_page, 'page':page}
+        
+        response = requests.get(url, params=params)
+        r = response.json()
+        count = (page-1)*20 + 0
 
-    def test():
-        with open("../img_url.txt", "w") as file:
-            return file.readline()
-    
-    def searchCode():
-        return True
-    
-    def registCode():
-        return True
+        for x in r['photos']['results']:
+            u = x['urls']['regular']
+            result['data']['results'].append({'id': count, 'url': u})
+            count = count + 1
+            
+        
+        return result
+
+Image.searchImage('sky', 20,1)
