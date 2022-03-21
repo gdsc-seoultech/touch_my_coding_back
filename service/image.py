@@ -1,36 +1,33 @@
-from urllib import response
-from flask import jsonify
 import requests
-import json
 
 class Image:
-<<<<<<< HEAD
-    def searchImage(query, per_page, page):
-        result = {
-            "success": True,
-            "data": {
-                "results": [
-                ]
-            }
+    def searchImage(query, page):
+        
+        image_url_list = []
+
+        requset_url = 'https://unsplash.com/napi/search' # 웹 요청 
+        params = {
+            'query': query,
+            'per_page': 10,
+            'page': page
         }
-        url = 'https://unsplash.com/napi/search' # 웹 요청 
-        params = {'query':query, 'per_page':per_page, 'page':page}
         
-        response = requests.get(url, params=params)
-        r = response.json()
-        count = (page-1)*20 + 0
-
-        for x in r['photos']['results']:
-            u = x['urls']['regular']
-            result['data']['results'].append({'id': count, 'url': u})
-            count = count + 1
-            
-        
-        return result
-
-Image.searchImage('sky', 20,1)
-=======
-     def searchImage(query, per_page, page):
-        return True
+        url_response = requests.get(requset_url, params=params).json()["photos"]
     
->>>>>>> master
+        total_pages = url_response["total_pages"]
+        results = url_response["results"]
+        
+        if (total_pages >= int(page)): # 정상    
+            for i in results:
+                urls = i["urls"]["raw"]
+                image_url_list.append(urls)
+        
+        server_response = {
+            "success": True,
+            "total_pages": total_pages,
+            "result": image_url_list 
+        }    
+        
+        return server_response
+
+    

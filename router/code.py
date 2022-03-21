@@ -1,13 +1,14 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, json
 from service import code
 
 service = code.Code
-code_route = Blueprint("code", __name__, url_prefix="/code")
+code_route = Blueprint("code", __name__, url_prefix="/api/code")
 
 @code_route.route("/<uuid>", methods=["GET"])
-def searchCode():
-    return service.searchCode()
+def searchCode(uuid):
+    return service.searchCode(uuid)
 
-@code_route.route("/", methods=["POST"])
+@code_route.route("", methods=["POST"])
 def registCode():
-    return service.registCode()
+    data = json.loads(request.data)
+    return service.registCode(data)

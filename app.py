@@ -4,7 +4,7 @@ from flask_cors import CORS
 from database import db, migrate
 from config import Config
 from router import image, code
-from model.models import User, Test 
+from model.models import User, Test
 
 # app 시작
 app = Flask(__name__)
