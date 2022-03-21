@@ -4,6 +4,7 @@ import requests
 import json
 
 class Image:
+<<<<<<< HEAD
     def searchImage(query, per_page, page):
         result = {
             "success": True,
@@ -28,3 +29,8 @@ class Image:
         return result
 
 Image.searchImage('sky', 20,1)
+=======
+     def searchImage(query, per_page, page):
+        return True
+    
+>>>>>>> master
