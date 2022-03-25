@@ -1,10 +1,7 @@
 from ast import keyword
-from urllib import response
-from flask import jsonify
 import requests
 import json
 from google.cloud import vision # Imports the Google Cloud client library
-from google.cloud import storage
 
 
 class Image:
@@ -27,7 +24,7 @@ class Image:
             for i in results:
                 urls = i["urls"]["raw"]
                 image_url_list.append(urls)
-        
+            
         server_response = {
             "success": True,
             "total_pages": total_pages,
@@ -36,7 +33,8 @@ class Image:
         
         return server_response
 
-    def keyWord(uri):
+    def getLabel(uri):
+        label_list = []
        # Instantiates a client
         client = vision.ImageAnnotatorClient()
 
@@ -48,4 +46,11 @@ class Image:
         labels = response.label_annotations 
 
         for label in labels:
-            print(label.description) # 키워드만 출력
+            label_list.append(label.description) # 키워드만 출력
+        
+        server_response = {
+            "success": True,
+            "label": label_list
+        }
+
+        return server_response

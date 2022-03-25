@@ -10,3 +10,8 @@ def searchImage():
     page = request.args.get("page")
 
     return service.searchImage(query, page)
+
+@image_route.route("/label/<img_src>", methods=["GET"])
+def getLabel(img_src):
+    print(img_src, "check my url")
+    return service.getLabel(img_src)
