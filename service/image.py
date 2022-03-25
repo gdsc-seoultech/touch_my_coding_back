@@ -1,8 +1,9 @@
 from ast import keyword
+from email import header
 import requests
 import json
-from google.cloud import vision # Imports the Google Cloud client library
-
+import os # .env 값에서 API_KEY 가져오기 
+from dotenv import load_dotenv # 가상 환경에서 환경변수 
 
 class Image:
     def searchImage(query, page):
@@ -34,23 +35,34 @@ class Image:
         return server_response
 
     def getLabel(uri):
-        label_list = []
-       # Instantiates a client
-        client = vision.ImageAnnotatorClient()
-
-        image = vision.Image()
-        image.source.image_uri = uri 
-
-        # Performs label detection on the image file
-        response = client.label_detection(image=image)
-        labels = response.label_annotations 
-
-        for label in labels:
-            label_list.append(label.description) # 키워드만 출력
-        
-        server_response = {
-            "success": True,
-            "label": label_list
+        load_dotenv()
+        label = {
+            "requests": [
+                {
+                "image": {
+                    "source": {
+                    "imageUri": uri
+                    }
+                },
+                "features": [
+                    {
+                    "type": "LABEL_DETECTION",
+                    "maxResults": 5
+                    }
+                ]
+                }
+            ]
         }
 
-        return server_response
+        json_data = json.dumps(label)
+        API_KEY = os.environ.get("API_KEY")
+
+        response = requests.post(f'https://vision.googleapis.com/v1/images:annotate?key={API_KEY}', data=json_data) 
+        r = response.json() # json으로 변환 
+        labels = r['responses'][0]['labelAnnotations']
+
+        for label in labels:
+            print(label['description']) # keyword만 출력 
+
+Image.getLabel('https://images.unsplash.com/photo-1499988921418-b7df40ff03f9?ixlib=rb-1.2.1\u0026q=80\u0026fm=jpg\u0026crop=entropy\u0026cs=tinysrgb\u0026w=400\u0026fit=max')
+# img url은 small로 추천 드립니다. raw를 쓰니 용량이 초과한다고 뜨네용
