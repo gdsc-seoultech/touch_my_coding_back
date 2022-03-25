@@ -9,4 +9,9 @@ def searchImage():
     query = request.args.get("query")
     page = request.args.get("page")
 
+<<<<<<< Updated upstream
     return service.searchImage(query, page)
+=======
+    return service.searchImage(query, page)
+
+>>>>>>> Stashed changes
