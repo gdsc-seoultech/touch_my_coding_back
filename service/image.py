@@ -49,5 +49,3 @@ class Image:
 
         for label in labels:
             print(label.description) # 키워드만 출력
-
-
