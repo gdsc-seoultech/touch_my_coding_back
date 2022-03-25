@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request # 모듈을 나누는 친구 
+from flask import Blueprint, json, request # 모듈을 나누는 친구 
 from service import image
 
 service = image.Image
@@ -11,7 +11,8 @@ def searchImage():
 
     return service.searchImage(query, page)
 
-@image_route.route("/label/<img_src>", methods=["GET"])
-def getLabel(img_src):
-    print(img_src, "check my url")
-    return service.getLabel(img_src)
+@image_route.route("/label", methods=["POST"])
+def getLabel():
+    data = json.loads(request.data)
+
+    return service.getLabel(data["url"])
