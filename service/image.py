@@ -23,7 +23,7 @@ class Image:
         
         if (total_pages >= int(page)): # 정상    
             for i in results:
-                urls = i["urls"]["raw"]
+                urls = i["urls"]["small"]
                 image_url_list.append(urls)
             
         server_response = {
@@ -35,6 +35,8 @@ class Image:
         return server_response
 
     def getLabel(uri):
+        label_list = []
+
         load_dotenv()
         label = {
             "requests": [
@@ -62,7 +64,11 @@ class Image:
         labels = r['responses'][0]['labelAnnotations']
 
         for label in labels:
-            print(label['description']) # keyword만 출력 
+            label_list.append(label) 
 
-Image.getLabel('https://images.unsplash.com/photo-1499988921418-b7df40ff03f9?ixlib=rb-1.2.1\u0026q=80\u0026fm=jpg\u0026crop=entropy\u0026cs=tinysrgb\u0026w=400\u0026fit=max')
-# img url은 small로 추천 드립니다. raw를 쓰니 용량이 초과한다고 뜨네용
+        server_response = {
+            "success": True,
+            "label": label_list
+        }
+
+        return server_response
