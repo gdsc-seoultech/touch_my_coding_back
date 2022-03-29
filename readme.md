@@ -1,48 +1,60 @@
-# Touch my coding 백엔드 서버입니다.
+# Touch my coding Backend-server
 
-### 개발 환경
+## Environment Setting
 
-- conda말고 pipfile 추천드려요
-- python 3.8
-- 라이브러리 requirements.txt 참고<br/><br/>
-
-### Code formatter
-
-향후 논의 해봐요
-<br/><br/>
-
-### 가상환경 구성
+- You should set virtual environment Python 3.8
+- Recommend to use virtualenv
+- You can download python package from
 
 ```
-# 가상환경 만들기
-virtualenv env --python=python3.8
-```
-
-<br/><br/>
-
-### freeze 활용법
-
-```
-# freeze 생성
-pip freeze > requirements.txt
-
-# freeze 라이브러라 다운로드
 pip install -r requirements.txt
 ```
 
-<br/><br/>
-
-### db migrate 활용
-
-https://blogger.pe.kr/887
+## Create virtual environment
 
 ```
-# 첫 설정
+# Create virtual env
+virtualenv env --python=python3.8
+```
+
+## Set SqlAlchemy
+
+This project use Flask Sql Alchemy as ORM libraries.
+
+Need environment file ".env"
+
+```
+.env
+
+DB_USER=
+DB_PW=
+DB_HOST=
+DB_PORT=
+DB_DATABASE=
+```
+
+Reference below commands
+
+```
+# First init
 flask db init
 
-# 생성
+# Create migration
 flask db migrate
 
-# 업데이트
+# Migration update
 flask db upgrade
+```
+
+ref: https://blogger.pe.kr/887
+
+## Vision Api
+
+In this project, Vision Api was used. So, it needs API key value for request server.
+
+```
+.env
+~~
+API_KEY=
+
 ```
